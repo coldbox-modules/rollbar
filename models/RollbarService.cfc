@@ -68,7 +68,7 @@ component  accessors=true{
 	 *
 	 * @return struct 
 	 */
-	function sendToRollbar( required string logBody, struct metadata={}, level="info" ){
+	function sendToRollbar( required struct logBody, struct metadata={}, level="info" ){
 		var threadName 	= "rollbar-#createUUID()#";
 		var event 		= variables.coldbox.getRequestService().getContext();
 		var httpData 	= getHTTPRequestData();
@@ -76,7 +76,7 @@ component  accessors=true{
 		// ColdBox Environment
 		var coldboxEnv = {
 			"currentEvent"		: event.getCurrentEvent(),
-			"currentRoute"		: event.getCurrentCourte(),
+			"currentRoute"		: event.getCurrentRoute(),
 			"currentLayout"		: event.getCurrentLayout(),
 			"currentView"		: event.getCurrentView(),
 			"currentModule"		: event.getCurrentModule(),

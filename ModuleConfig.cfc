@@ -19,8 +19,6 @@ component {
 	this.layoutParentLookup = true;
 	// Module Entry Point
 	this.entryPoint			= "rollbar";
-	// Auto Map Models
-	this.autoMapModels		= false;
 
 	/**
 	* Configure
