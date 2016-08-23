@@ -31,7 +31,10 @@ component {
 			// Rollbar token
 			"ServerSideToken" = "",
 		    // Enable the Rollbar LogBox Appender Bridge
-		    "enableLogBoxAppender" : true
+		    "enableLogBoxAppender" = true,
+		    // Min/Max levels for appender
+		    "levelMin" = "FATAL",
+		    "levelMax" = "INFO"
 		};
 
 		// SES Routes
@@ -86,7 +89,12 @@ component {
 
 		// Register tracer appender
 		rootConfig = logBoxConfig.getRoot();
-		logBoxConfig.appender( name="rollbar_appender", class="#moduleMapping#.models.RollbarAppender" );
+		logBoxConfig.appender( 
+			name 		= "rollbar_appender", 
+			class 		= "#moduleMapping#.models.RollbarAppender",
+			levelMin 	= settings.levelMin,
+			levelMax 	= settings.levelMax
+		);
 		logBoxConfig.root( 
 			levelMin = rootConfig.levelMin,
 			levelMax = rootConfig.levelMax,
