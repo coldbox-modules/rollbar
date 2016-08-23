@@ -1,19 +1,25 @@
 {
-	"name" 		: "RollBar",
-	"version"	: "1.0.0",
-	"slug"		: "rollbar",
-	"location"	: "coldbox-modules/rollbar#v1.0.0",
-	"author" 	: "Ortus Solutions <info@ortussolutions.com>",
-	"type"		: "modules",
-	"homepage":"https://github.com/coldbox-modules/rollbar",
+    "name":"RollBar",
+    "version":"1.0.1",
+    "slug":"rollbar",
+    "location":"coldbox-modules/rollbar#v`package version",
+    "author":"Ortus Solutions <info@ortussolutions.com>",
+    "type":"modules",
+    "homepage":"https://github.com/coldbox-modules/rollbar",
     "documentation":"https://github.com/coldbox-modules/rollbar",
-	"repository"		: { "type" : "git", "url" : "https://github.com/coldbox-modules/rollbar" },
-	"bugs":"https://github.com/coldbox-modules/rollbar/issues",
-    "shortDescription"	: "A module to log and send bug reports to Rollbar",
-	"license"			: [ 
-		{ "type" : "Apache2", "url" : "http://www.apache.org/licenses/LICENSE-2.0.html" } 
-	],
-	"contributors":[
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/coldbox-modules/rollbar"
+    },
+    "bugs":"https://github.com/coldbox-modules/rollbar/issues",
+    "shortDescription":"A module to log and send bug reports to Rollbar",
+    "license":[
+        {
+            "type":"Apache2",
+            "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    ],
+    "contributors":[
         
     ],
     "dependencies":{
@@ -25,13 +31,13 @@
     "installPaths":{
         "testbox":"testbox"
     },
-	"ignore" : [ 
-		"apidocs/*", 
-		"handlers/*",
-		"tests/*"
-	],
-	"scripts" : {
-        "postVersion" : "package set location='coldbox-modules/rollbar#v`package version`",
-        "postPublish" : "!git push --follow-tags"
+    "ignore":[
+        "apidocs/*",
+        "handlers/*",
+        "tests/*"
+    ],
+    "scripts":{
+        "postVersion":"package set location='coldbox-modules/rollbar#v`package version`",
+        "postPublish":"!git push --follow-tags"
     }
 }
