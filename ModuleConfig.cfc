@@ -32,7 +32,9 @@ component {
 		    "enableLogBoxAppender" = true,
 		    // Min/Max levels for appender
 		    "levelMin" = "FATAL",
-		    "levelMax" = "INFO"
+		    "levelMax" = "INFO",
+		    // Enable/disable error logging
+		    "enableExceptionLogging" = true
 		};
 
 		// SES Routes
@@ -68,6 +70,9 @@ component {
 	* Trap exceptions and send them to Rollbar
 	*/
 	function onException( event, interceptData, buffer ){
+		if( !settings.enableExceptionLogging ){
+			return;
+		}
 		var rollbarService = wirebox.getInstance( "RollbarService@rollbar" );
 		// create log body
 		var logBody = rollbarService.exceptionToLogBody( interceptData.exception );

@@ -34,7 +34,9 @@ rollbar = {
     "enableLogBoxAppender" : true,
     // Min/Max levels for appender
     "levelMin" = "FATAL",
-    "levelMax" = "INFO"
+    "levelMax" = "INFO",
+    // Enable/disable error logging
+    "enableExceptionLogging" = true
 };
 ```
 
