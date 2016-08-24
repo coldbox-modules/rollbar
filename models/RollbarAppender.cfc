@@ -42,8 +42,10 @@ component extends="coldbox.system.logging.AbstractAppender" accessors=true{
 				}
 			};
 		}
-
-		var threadStatus = variables.rollbarService.sendToRollbar( logBody=logBody, level=arguments.logEvent.getSeverity() );
+		var threadStatus = variables.rollbarService.sendToRollbar( 
+			logBody	= logBody, 
+			level 	= this.logLevels.lookup( arguments.logEvent.getSeverity() ) 
+		);
 	}
 
 }

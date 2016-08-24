@@ -5,7 +5,7 @@
 * ---
 * Connector to Rollbar
 */
-component  accessors=true{
+component accessors=true singleton{
 	
 	/**
 	 * Module  Settings
@@ -84,7 +84,6 @@ component  accessors=true{
 		};
 		// Append to custom metadata
 		structAppend( arguments.metadata, coldboxEnv, true );
-
 		// Create payload
 		var payload = {
 			"access_token" 	: variables.settings.serverSideToken,
