@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/coldbox-modules/rollbar.svg?branch=development)](https://travis-ci.org/coldbox-modules/rollbar)
+
 # Welcome to the Rollbar ColdBox Module
 (https://rollbar.com)
 
