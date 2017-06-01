@@ -14,7 +14,7 @@ Apache License, Version 2.0.
 - [Changelog](changelog.md)
 
 ## SYSTEM REQUIREMENTS
-- ColdFusion 10+
+- ColdFusion 11+
 - ColdBox 4+
 
 ## Instructions
@@ -43,7 +43,15 @@ rollbar = {
 
 ## Usage
 
-Just by activating the module any exceptions will be sent to Rollbar. The LogBox appender bridge is activated by default, and the Rollbar appender is added as an appender to your application.  You can fine tune it via your main CodBox logbox configuration file.
+Just by activating the module any exceptions will be sent to Rollbar. The LogBox appender bridge is **activated** by default, and the Rollbar appender is added as an appender to your application.  You can fine tune it via your main CodBox logbox configuration file.
+
+### Exception Tracking
+
+The module will automatically listen for exceptions in any part of your application and send the exceptions over to rollbar.
+
+### Logging
+
+You can use LogBox and any of its logging methods to send data to Rollbar automatically using the required logging levels for the appender in the configuration.
 
 
 

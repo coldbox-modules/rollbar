@@ -16,5 +16,9 @@ component extends="coldbox.system.EventHandler"{
 	any function index( event, rc, prc ){
 		event.throwAnException();		
 	}
+
+	// Run on first init
+	any function onAppInit( event, rc, prc ){
+	}
 	
 }

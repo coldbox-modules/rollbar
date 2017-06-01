@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## 1.3.0
+* Automated scrubbing of fields and headers
+* Updated docs
+* Creation of API Docs
+* Travis Integration
+* Automated Publishing to forgebox.io
+
 ## 1.2.0
 * Ability to disabled error logging, great for tiered environments using the `enableExceptionLogging` setting.
 

@@ -12,13 +12,17 @@ component {
 	this.author 			= "Ortus Solutions";
 	this.webURL 			= "https://www.ortussolutions.com";
 	this.description 		= "A module to log and send bug reports to Rollbar";
-	this.version			= "1.0.0";
+	this.version			= "1.3.0";
 	// If true, looks for views in the parent first, if not found, then in the module. Else vice-versa
 	this.viewParentLookup 	= true;
 	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
 	this.layoutParentLookup = true;
 	// Module Entry Point
 	this.entryPoint			= "rollbar";
+
+	// STATIC SCRUB FIELDS
+	SCRUB_FIELDS 	= [ "passwd", "password", "password_confirmation", "secret", "confirm_password", "secret_token", "APIToken", "x-api-token" ];
+	SCRUB_HEADERS 	= [ "x-api-token", "Authorization" ];
 
 	/**
 	* Configure
@@ -34,7 +38,10 @@ component {
 		    "levelMin" = "FATAL",
 		    "levelMax" = "INFO",
 		    // Enable/disable error logging
-		    "enableExceptionLogging" = true
+		    "enableExceptionLogging" = true,
+		    // Data sanitization, scrub fields and headers, replaced with * at runtime
+		    "scrubFields" 	= [],
+		    "scrubHeaders" 	= [] 
 		};
 
 		// SES Routes
@@ -53,6 +60,9 @@ component {
 		// parse parent settings
 		parseParentSettings();
 		var settings = controller.getConfigSettings().rollbar;
+		// Incorporate defaults into settings
+		settings.scrubFields.addAll( SCRUB_FIELDS );
+		settings.scrubHeaders.addAll( SCRUB_HEADERS );
 		// Load the LogBox Appenders
 		if( settings.enableLogBoxAppender ){
 			loadAppenders();

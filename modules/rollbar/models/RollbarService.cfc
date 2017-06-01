@@ -61,6 +61,57 @@ component accessors=true singleton{
 	}
 
 	/**
+	 * Sanitize the incoming http headers in the request data struct
+	 * @data The HTTP data struct, passed by reference
+	 */
+	private function sanitizeHeaders( required struct data ){
+		if( structCount( arguments.data.headers ) ){
+			for( var thisHeader in variables.settings.scrubHeaders ){
+				// If header found, then sanitize it.
+				if( structKeyExists( arguments.data.headers, thisHeader ) ){
+					arguments.data.headers[ thisHeader ] = "*";
+				}
+			}
+		}
+	}
+
+	/**
+	 * Sanitize fields
+	 * @data The data fields struct
+	 */
+	private struct function sanitizeFields( required struct data ){
+		if( structCount( arguments.data ) ){
+			for( var thisField in variables.settings.scrubFields ){
+				// If header found, then sanitize it.
+				if( structKeyExists( arguments.data, thisField ) ){
+					arguments.data[ thisField ] = "*";
+				}
+			}
+		}
+		return arguments.data;
+	}
+
+	/**
+	 * Sanitize the incoming query string
+	 * @target The target string to sanitize
+	 */
+	private function sanitizeQueryString( required string target ){
+		var aTarget = listToArray( cgi.query_string, "&" )
+			.map( function( item, index, array ){
+				var key 	= listFirst( arguments.item, "=" );
+				var value 	= listLast( arguments.item, "=" );
+
+				// Sanitize?
+				if( arrayContainsNoCase( variables.settings.scrubFields, key ) ){
+					value = "*";
+				}
+
+				return { "#key#" = value };
+		} );
+		return arrayToList( aTarget );
+	}
+
+	/**
 	 * Send a log body to rollbar
 	 * @logBody The logBody struct to send as a message
 	 * @metadata A struct of metadata to send alongside the message
@@ -73,6 +124,9 @@ component accessors=true singleton{
 		var event 		= variables.coldbox.getRequestService().getContext();
 		var httpData 	= getHTTPRequestData();
 
+		// Sanitize headers
+		sanitizeHeaders( httpData );
+
 		// ColdBox Environment
 		var coldboxEnv = {
 			"currentEvent"		: event.getCurrentEvent(),
@@ -82,8 +136,10 @@ component accessors=true singleton{
 			"currentModule"		: event.getCurrentModule(),
 			"currentRoutedURL"	: event.getCurrentRoutedURL()
 		};
+
 		// Append to custom metadata
 		structAppend( arguments.metadata, coldboxEnv, true );
+
 		// Create payload
 		var payload = {
 			"access_token" 	: variables.settings.serverSideToken,
@@ -104,22 +160,22 @@ component accessors=true singleton{
 				"context" 		: event.getCurrentEvent(),
 				// Data about the request this event occurred in.
 				"request" 		: {
-					// url: full URL where this event occurred
-					"url": CGI.REQUEST_URL,
+					// url: full URL where this event occurred, without query string
+					"url" 			: listFirst( CGI.REQUEST_URL, "?" ),
 					// method: the request method
-					"method": httpData.method,
+					"method" 		: httpData.method,
 					// query_string: the raw query string
-		      		"query_string": CGI.QUERY_STRING,
+		      		"query_string" 	: sanitizeQueryString( CGI.QUERY_STRING ),
 					// Headers
-					"headers" : httpData.headers,
+					"headers" 		: httpData.headers,
 					// Raw Body
-					"body" 	: httpData.content,
+					"body" 			: httpData.content,
 					// POST: POST params
-		      		"POST": FORM,
+		      		"POST" 			: sanitizeFields( FORM ),
 		      		// GET: query string params
-		      		"GET": URL,
+		      		"GET" 			: sanitizeFields( URL ),
 					// IP Address of request
-					"user_ip" : getRealIP()
+					"user_ip" 		: getRealIP()
 				},
 				// Server information
 				"server" : {
@@ -141,7 +197,7 @@ component accessors=true singleton{
 		};
 
 		var APIBaseURL = getAPIBaseURL();
-		// thread this
+		// thread the http call so we are non-blocking
 		thread 
 			name="#threadName#" 
 			action="run"
