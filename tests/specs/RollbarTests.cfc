@@ -32,7 +32,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
 
 			it( "should trap exceptions and do logging", function(){
 				expect(	function(){
-					execute( "main.index" ) 
+					execute( "main.index" );
 				}).toThrow();
 			});
 
