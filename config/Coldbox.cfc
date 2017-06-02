@@ -78,6 +78,18 @@ component{
 			}
 		];
 
+		rollbar = {
+		    // Rollbar token
+		    "ServerSideToken" = fileRead( expandPath( "/config/token.cfm") ),
+		    // Enable the Rollbar LogBox Appender Bridge
+		    "enableLogBoxAppender" : true,
+		    // Min/Max levels for appender
+		    "levelMin" = "FATAL",
+		    "levelMax" = "INFO",
+		    // Enable/disable error logging
+		    "enableExceptionLogging" = true
+		};
+
 	}
 
 }

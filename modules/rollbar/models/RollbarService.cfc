@@ -106,9 +106,9 @@ component accessors=true singleton{
 					value = "*";
 				}
 
-				return { "#key#" = value };
+				return "#key#=#value#";
 		} );
-		return arrayToList( aTarget );
+		return arrayToList( aTarget, "&" );
 	}
 
 	/**
@@ -206,6 +206,8 @@ component accessors=true singleton{
 			var h = new HTTP( url=variables.APIBaseURL, method="POST" );
 			h.addParam( type="BODY", value=serializeJSON( payload ) );
 			thread.response = h.send().getPrefix();
+
+			systemOutput( "Sent to rollbar: #thread.response.toString()#" );
 		}
 		// return thread information
 		return cfthread[ threadName ];

@@ -10,3 +10,6 @@ artifacts/*
 apidocs/docbox/*
 workbench/*
 build/*
+
+# don't put token
+config/token.cfm

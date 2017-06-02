@@ -46,6 +46,8 @@ script:
   # add our module-specific build properties
   - printf "\nmodule.name=$MODULE_ID" >> workbench/build.properties
   - printf "\ncfengine=$ENGINE" >> workbench/build.properties
+  # Add our server token
+  - printf "$ROLLBAR_TOKEN" >> config/token.cfm
   # execute our build
   - ant -DisTravis=true -Dbuild.number=$TRAVIS_BUILD_NUMBER -Dbuild.branch=$TRAVIS_BRANCH -f workbench/build.xml
 
