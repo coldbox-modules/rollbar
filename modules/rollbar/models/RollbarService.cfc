@@ -192,7 +192,7 @@ component accessors=true singleton{
 				"notifier" 		: {
 					"name" 		: "ColdBox Rollbar Module",
 			  		"version"	: variables.moduleConfig.version
-				},
+				}
 			}
 		};
 
@@ -241,7 +241,7 @@ component accessors=true singleton{
 				// The line of code
 				"code" 		: arguments.stackItem.codePrintPlain ?: ''
 			};
-		}
+		};
 
 		var trace = {
 			"exception": {
@@ -253,7 +253,7 @@ component accessors=true singleton{
 		};
 
 		for( var stackItem in arguments.exception.TagContext ){
-			arrayAppend( trace.frames, formatFrame( stackItem ) )
+			arrayAppend( trace.frames, formatFrame( stackItem ) );
 		}
 
 		return trace;

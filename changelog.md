@@ -7,6 +7,7 @@ CHANGELOG
 * Creation of API Docs
 * Travis Integration
 * Automated Publishing to forgebox.io
+* Adobe ColdFusion support 11+
 
 ## 1.2.0
 * Ability to disabled error logging, great for tiered environments using the `enableExceptionLogging` setting.
