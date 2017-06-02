@@ -1,9 +1,9 @@
 {
     "name":"RollBar",
-    "version":"1.2.0",
-    "slug":"rollbar",
-    "location":"coldbox-modules/rollbar#v1.2.0",
     "author":"Ortus Solutions <info@ortussolutions.com>",
+    "version"   : "@build.version@+@build.number@",
+    "location"  : "http://downloads.ortussolutions.com/ortussolutions/coldbox-modules/rollbar/@build.version@/rollbar-@build.version@.zip",
+    "slug":"rollbar",
     "type":"modules",
     "homepage":"https://github.com/coldbox-modules/rollbar",
     "documentation":"https://github.com/coldbox-modules/rollbar",
@@ -12,7 +12,7 @@
         "url":"https://github.com/coldbox-modules/rollbar"
     },
     "bugs":"https://github.com/coldbox-modules/rollbar/issues",
-    "shortDescription":"A module to log and send bug reports to Rollbar",
+    "shortDescription":"A module to log messages and send bug reports to Rollbar",
     "license":[
         {
             "type":"Apache2",
@@ -26,19 +26,13 @@
         
     },
     "devDependencies":{
-        "testbox":"^2.3.0+00044"
     },
     "installPaths":{
-        "testbox":"testbox"
     },
     "ignore":[
         ".git*",
         "apidocs/*",
         "handlers/*",
         "tests/*"
-    ],
-    "scripts":{
-        "postVersion":"package set location='coldbox-modules/rollbar#v`package version`'",
-        "postPublish":"!git push --follow-tags"
-    }
+    ]
 }
