@@ -45,7 +45,7 @@ rollbar = {
 
 ## Usage
 
-Just by activating the module any exceptions will be sent to Rollbar. The LogBox appender bridge is **activated** by default, and the Rollbar appender is added as an appender to your application.  You can fine tune it via your main CodBox logbox configuration file.
+Just by activating the module any exceptions will be sent to Rollbar. The LogBox appender bridge is **activated** by default, and the Rollbar appender is added as an appender to your application.  You can fine tune it via your main ColdBox logbox configuration file.
 
 ### Exception Tracking
 
