@@ -14,7 +14,11 @@ component extends="coldbox.system.EventHandler"{
 	* Index
 	*/
 	any function index( event, rc, prc ){
-		event.throwAnException();
+		try{
+			event.throwAnException();
+		} catch( any e ){
+			return "Exception thrown correctly!";
+		}
 	}
 
 	// Run on first init
