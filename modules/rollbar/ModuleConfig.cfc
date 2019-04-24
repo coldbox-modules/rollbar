@@ -36,7 +36,7 @@ component {
 		    "enableLogBoxAppender" = true,
 		    // Min/Max levels for appender
 		    "levelMin" = "FATAL",
-		    "levelMax" = "INFO",
+		    "levelMax" = "ERROR",
 		    // Enable/disable error logging
 		    "enableExceptionLogging" = true,
 		    // Data sanitization, scrub fields and headers, replaced with * at runtime
