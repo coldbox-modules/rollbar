@@ -73,7 +73,7 @@
 		moduleSettings = {
 			rollbar = {
 				// Rollbar token
-				"ServerSideToken" : fileRead( expandPath( "/config/token.cfm") ),
+				"ServerSideToken" : getSystemSetting( "ROLLBAR_TOKEN", "" ),
 				// Enable the Rollbar LogBox Appender Bridge
 				"enableLogBoxAppender" : true,
 				// Min/Max levels for appender
