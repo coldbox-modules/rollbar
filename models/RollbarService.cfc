@@ -23,7 +23,7 @@ component accessors=true singleton{
 	/**
 	 * Constructor
 	 * @settings The module settings
-	 * @settings.inject coldbox:setting:rollbar
+	 * @settings.inject coldbox:moduleSettings:rollbar
 	 * @coldbox.inject coldbox
 	 */
 	function init(
@@ -207,7 +207,9 @@ component accessors=true singleton{
 			h.addParam( type="BODY", value=serializeJSON( payload ) );
 			thread.response = h.send().getPrefix();
 
-			systemOutput( "Sent to rollbar: #thread.response.toString()#" );
+			if( server.keyExists( "lucee" ) ){
+				systemOutput( "Sent to rollbar: #thread.response.toString()#" );
+			}
 		}
 		// return thread information
 		return cfthread[ threadName ];

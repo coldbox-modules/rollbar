@@ -1,4 +1,4 @@
-/**
+﻿/**
 * My Event Handler Hint
 */
 component extends="coldbox.system.EventHandler"{
@@ -7,7 +7,7 @@ component extends="coldbox.system.EventHandler"{
 	* Executes before all handler actions
 	*/
 	any function preHandler( event, rc, prc, action, eventArguments ){
-		log.info( "Sending some info to RollBar" );
+		log.error( "Sending some info to RollBar" );
 	}
 
 	/**
@@ -20,5 +20,5 @@ component extends="coldbox.system.EventHandler"{
 	// Run on first init
 	any function onAppInit( event, rc, prc ){
 	}
-	
+
 }

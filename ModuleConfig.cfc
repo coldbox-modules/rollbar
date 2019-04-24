@@ -12,23 +12,20 @@ component {
 	this.author 			= "Ortus Solutions";
 	this.webURL 			= "https://www.ortussolutions.com";
 	this.description 		= "A module to log and send bug reports to Rollbar";
-	this.version			= "@build.version@+@build.number@";
+	this.version 			= "@build.version@+@build.number@";
 	// If true, looks for views in the parent first, if not found, then in the module. Else vice-versa
 	this.viewParentLookup 	= true;
 	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
 	this.layoutParentLookup = true;
-	// Module Entry Point
-	this.entryPoint			= "rollbar";
 
 	// STATIC SCRUB FIELDS
-	SCRUB_FIELDS 	= [ "passwd", "password", "password_confirmation", "secret", "confirm_password", "secret_token", "APIToken", "x-api-token" ];
-	SCRUB_HEADERS 	= [ "x-api-token", "Authorization" ];
+	variables.SCRUB_FIELDS 	= [ "passwd", "password", "password_confirmation", "secret", "confirm_password", "secret_token", "APIToken", "x-api-token" ];
+	variables.SCRUB_HEADERS 	= [ "x-api-token", "Authorization" ];
 
 	/**
 	* Configure
 	*/
 	function configure(){
-
 		settings = {
 			// Rollbar token
 			"ServerSideToken" = "",
@@ -44,25 +41,16 @@ component {
 		    "scrubHeaders" 	= [] 
 		};
 
-		// SES Routes
-		routes = [
-			// Module Entry Point
-			{ pattern="/", handler="test",action="index" },
-			// Convention Route
-			{ pattern="/:handler/:action?" }
-		];
 	}
 
 	/**
-	* Fired when the module is registered and activated.
-	*/
+	 * Fired when the module is registered and activated.
+	 */
 	function onLoad(){
-		// parse parent settings
-		parseParentSettings();
-		var settings = controller.getConfigSettings().rollbar;
 		// Incorporate defaults into settings
 		settings.scrubFields.addAll( SCRUB_FIELDS );
 		settings.scrubHeaders.addAll( SCRUB_HEADERS );
+		
 		// Load the LogBox Appenders
 		if( settings.enableLogBoxAppender ){
 			loadAppenders();
@@ -70,15 +58,15 @@ component {
 	}
 
 	/**
-	* Fired when the module is unregistered and unloaded
-	*/
+	 * Fired when the module is unregistered and unloaded
+	 */
 	function onUnload(){
 
 	}
 
 	/**
-	* Trap exceptions and send them to Rollbar
-	*/
+	 * Trap exceptions and send them to Rollbar
+	 */
 	function onException( event, interceptData, buffer ){
 		if( !settings.enableExceptionLogging ){
 			return;
@@ -94,7 +82,9 @@ component {
 
 	//**************************************** PRIVATE ************************************************//	
 
-	// load LogBox appenders
+	/**
+	 * Load LogBox Appenders
+	 */
 	private function loadAppenders(){
 		// Get config
 		var logBoxConfig 	= controller.getLogBox().getConfig();
@@ -116,21 +106,6 @@ component {
 
 		// Store back config
 		controller.getLogBox().configure( logBoxConfig );
-	}
-
-	/**
-	* parse parent settings
-	*/
-	private function parseParentSettings(){
-		var oConfig 		= controller.getSetting( "ColdBoxConfig" );
-		var configStruct 	= controller.getConfigSettings();
-		var rollbarDSL 		= oConfig.getPropertyMixin( "rollbar", "variables", structnew() );
-
-		// Defaults
-		configStruct.rollbar = settings;
-
-		// incorporate settings
-		structAppend( configStruct.rollbar, rollbarDSL, true );
 	}
 
 }
